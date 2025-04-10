@@ -22,12 +22,40 @@ public class ProductoImpl implements IProduct {
 
     @Override
     public List<ProductDTO> getAll() {
-
-              List<Producto> productos = productoRepository.findAll();
+        List<Producto> productos = productoRepository.findAll();
         return productoMapper.toProductDTOs(productos);
-  
-        //return productoRepository.findAll()
-        //    .stream().map(producto -> productoMapper.toProductDTO(producto))
-        //    .collect(Collectors.toList());
+    }
+    
+    @Override
+    public ProductDTO getById(Long id) {
+        return productoRepository.findById(id)
+                .map(productoMapper::toProductDTO)
+                .orElse(null);
+    }
+
+    @Override
+    public ProductDTO save(ProductDTO productDTO) {
+        Producto producto = productoMapper.toProducto(productDTO);
+        Producto saved = productoRepository.save(producto);
+        return productoMapper.toProductDTO(saved);
+    }
+
+    @Override
+    public ProductDTO update(Long id, ProductDTO productDTO) {
+        if (productoRepository.existsById(id)) {
+            Producto producto = productoMapper.toProducto(productDTO);
+            producto.setId(id);
+            return productoMapper.toProductDTO(productoRepository.save(producto));
+        }
+        return null;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if (productoRepository.existsById(id)) {
+            productoRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

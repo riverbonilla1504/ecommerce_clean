@@ -1,0 +1,54 @@
+Producto
+POST /productos y PUT /productos/{id}
+{
+  "name": "Laptop",
+  "description": "Laptop de alto rendimiento",
+  "price": 1500.0,
+  "stock": 10
+}
+
+Cliente
+POST /clientes y PUT /clientes/{id}
+{
+  "name": "Juan Pérez",
+  "email": "juan@example.com",
+  "address": "Calle 123",
+  "phone": "3123456789"
+}
+
+
+Orden
+POST /ordenes y PUT /ordenes/{id}
+{
+  "date": "2025-04-10T14:30:00",
+  "total": 100.0,
+  "status": "PENDIENTE",
+  "clientId": 1
+}
+
+
+OrdenItem
+POST /ordenes/{ordenId}/items
+{
+  "quantity": 2,
+  "unitPrice": 750.0,
+  "productId": 1
+}
+PUT /ordenes/{ordenId}/items/{id}
+{
+  "quantity": 3,
+  "unitPrice": 750.0,
+  "productId": 1,
+  "orderId": 1
+}
+
+
+Pago
+POST /pagos y PUT /pagos/{id}
+{
+  "paymentDate": "2025-04-10",
+  "amount": 1500.0,
+  "method": "TARJETA",   
+  "status": "COMPLETADO",
+  "orderId": 1
+}
